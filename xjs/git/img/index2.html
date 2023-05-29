@@ -1,0 +1,587 @@
+<html>
+<head>
+  <title>Certificados Dinamicos - Soluções</title>  
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="img/logoapp.png" />
+  <!-- <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> -->
+  <script type="text/javascript" src="../nicEdit.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+  <script type="text/javascript">
+//<![CDATA[
+  //Variaveis Primordiais Globais
+  var nomecurso,cargahoraria,aproveitamento;
+  var cidade,mesinicio,mesencerramento;
+  var cursoinicio,cursoencerramento;
+  var anoemissao,certverso_chk;
+  //Variaveis do editor
+  var area,area1,area2,area3;
+  
+  //NICK EDITOR
+  bkLib.onDomLoaded(function() {
+
+   area = new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area');
+    area1 = new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area1');
+    area2 = new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area2');
+    area3 = new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area3');
+  });
+  //]]>
+var sf,ss,st;
+sf =0;
+ss =0;
+st =0;
+function ocultarnomes(){
+   $('#first').toggle()
+   if(sf =0){
+   document.getElementById('first').style.width = "100%"
+    sf =1;
+   }else{
+   document.getElementById('first').style.width = "33.3%"
+    sf =0;
+   }
+  
+  
+}
+
+function ocultarcpf(){
+   $('#second').toggle()
+   if(ss =0){
+   document.getElementById('second').style.width = "100%"
+    ss =1;
+   }else{
+   document.getElementById('second').style.width = "33.3%"
+    ss =0;
+   }
+  
+   
+}
+
+function ocultarconteudo(){
+   $('#third').toggle()
+    if(st =0){
+   document.getElementById('third').style.width = "100%"
+    st =1;
+   }else{
+   document.getElementById('third').style.width = "33.3%"
+    st =0;
+   }
+  
+}
+
+function exibirtudo(){
+   $('#first,#second,#third').toggle()
+    document.getElementById('embol').style.height = "450px;"
+
+}
+
+function desab(){
+area.removeInstance('area');
+area1.removeInstance('area1');
+area2.removeInstance('area2');
+area3.removeInstance('area3');
+}
+
+function hab(){
+ area = new nicEditor({fullPanel : true}).panelInstance('area');
+ area1 = new nicEditor({fullPanel : true}).panelInstance('area1');
+ area2 = new nicEditor({fullPanel : true}).panelInstance('area2');
+ area3 = new nicEditor({fullPanel : true}).panelInstance('area3');
+}
+
+function redim(){
+ document.getElementById('first').style.width = "33.3%"
+ document.getElementById('second').style.width = "33.3%"
+ document.getElementById('third').style.width = "33.3%"
+
+ 
+ document.getElementById('area').style.width = "100%"
+ document.getElementById('area1').style.width = "100%"
+ document.getElementById('area2').style.width = "100%"
+ document.getElementById('area').style.height = "200px"
+ document.getElementById('area1').style.height = "200px"
+ document.getElementById('area2').style.height = "200px"
+ 
+ 
+
+ 
+ document.getElementById('embol').style.height = "450px;"
+
+
+}
+
+// FIM NICK EDITOR
+
+
+// SOFTWARE
+
+
+// Pega os valores inseridos nos campos de texto
+function capturardados(){
+nomecurso = document.getElementById("curso").value;
+cargahoraria = document.getElementById("cargahoraria").value;
+aproveitamento = document.getElementById("aproveitamento").value;
+cidade = document.getElementById("cidade").value;
+mesinicio = document.getElementById("mesinicio").value;
+mesencerramento = document.getElementById("mesencerramento").value;
+cursoinicio = document.getElementById("cursoinicio").value;
+cursoencerramento = document.getElementById("cursoencerramento").value;
+anoemissao = document.getElementById("anoemissao").value;
+//certverso_chk = document.getElementById("certverso_chk").value;
+//alert(nomecurso + "|" + cargahoraria + "|" + aproveitamento + "% |" + cidade + "|" + mesinicio + "|" + mesencerramento + "|" + cursoinicio + "|" + cursoencerramento + "|" + anoemissao + "|" + certverso_chk);
+}
+
+//verificar se campos são vazios
+function verificar(){
+capturardados();
+if(nomecurso == null || nomecurso==""){
+alert("Preencha [NOME DO CURSO ] campo vazio ou nulo !! confira o campo.");
+}else{
+
+if(cargahoraria == null || cargahoraria==""){
+alert("Preencha [CARGA HORARIA] campo vazio ou nulo !! confira o campo.");
+}else{
+
+if(aproveitamento == null || aproveitamento==""){
+alert("Preencha [APROVEITAMENTO] campo vazio ou nulo !! confira o campo.");
+}else{
+
+if(cursoinicio == null || cursoinicio==""){
+alert("Preencha [CURSO DATA DE INICIO] campo vazio ou nulo !! confira o campo.");
+}else{
+
+
+if(cursoencerramento== null || cursoencerramento==""){
+alert("Preencha [CURSO ENCERRAMENTOs] campo vazio ou nulo !! confira o campo.");
+}else{
+//alert("Dados preenchidos gerando certificados!" + "\n" + "Sistemas Soluções Enfermagem ~ 2023" + "\n" + "Versão: 1.36 por MS Dev");
+desab();
+certificadogen();
+}}}}}
+
+}//verificar fim
+
+var cpfanterior,nomeanterior;
+function certificadogen(){
+  //Variaveis do Certificado
+    var nomes = $("#area").val();
+    var txtcpf = $("#area1").val();
+    var frente = $("#area2").val();
+    var verso = $("#area3").val();
+	//ALTERAÇÃO DE VALORES FIXOS DE EMISSÃO DE CERTIFICADO
+	frente = frente.replace("$[CURSO]", nomecurso);
+	frente = frente.replace("$[APROVEITAMENTO]", aproveitamento);
+	frente = frente.replace("$[CARGA_HORARIA]", cargahoraria);
+	frente = frente.replace("$[MES_INICIO]", mesinicio);
+	frente = frente.replace("$[MES_FIM]", mesencerramento);
+	frente = frente.replace("$[DATA_INICIO]", cursoinicio);
+	frente = frente.replace("$[DATA_FIM]", cursoencerramento);
+	frente = frente.replace("$[ANO_EMISSAO]", anoemissao);
+	//var lines = area.value.replace(/\r\n/g,"\n").split("\n"); //Vetor alternativo
+  //verificando dados
+    var linhaenviar = nomes.split("\n");
+    var vetor = txtcpf.split("\n"); //esse e o textarea do qual quero criar o array [Vetor] quebra linha a linha e faz virar um vetor
+    var index = 0;
+    
+    var comp = linhaenviar.length >= vetor.length;
+    var maior = comp ? linhaenviar : vetor;
+
+    maior.forEach(function(value, i){
+      var arrayvetor = comp ? (vetor[i] != null ? vetor[i] : ''): value;
+      var linha = !comp ? (linhaenviar[i] != null ? linhaenviar[i] : ''): value;
+      var nomelst,cpflst;
+      setTimeout(
+         function(){
+            /// console.log(linha+" / "+arrayvetor);
+			//Verifica se vai ou não usar o verso na emissão do certificado define o tipo de pdf
+			 nomelst = linha; // Nome do Aluno por linha
+			 cpflst = arrayvetor; // CPF do aluno por linha
+			 // SUBSTITUI NOME E CPF DO ALUNO PARA O ATUAL
+			 frente = frente.replace("$[ALUNO]", nomelst);
+			 frente = frente.replace("$[CPF]", cpflst);
+			 
+			 if (document.getElementById("certverso_chk").checked) {
+				//Marcado (SIM) PDF de pagina multipla
+				//alert("chegou sim aqui com verso");
+				//alert(nomelst);
+				//alert(cpflst + "cpf");
+				
+				var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(frente);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+				
+				/*
+			var doc = new jsPDF();
+			doc.fromHTML("");
+			doc.save("arquivo");*/
+			 }else {
+			   //Marcado (Não) PDF de pagina Unica
+			    alert("chegou sim sem");
+				alert(nomelst);
+				alert(cpflst + "cpf");
+			 }
+
+			
+			//cerversofim
+          //Aqui podemos trabalhar
+      }, 10 * index);
+    index = index + 0;
+    })
+  }
+
+
+
+  </script>
+  
+  <style>
+  
+  
+  .wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(52, 52, 52);
+  background: linear-gradient(
+    90deg,
+    rgba(52, 52, 52, 1) 0%,
+    rgba(97, 119, 255, 1) 0%,
+    rgba(33, 57, 189, 1) 100%
+  );
+}
+ 
+.wrapper a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 3px;
+  text-transform: uppercase;
+  color: #585858;
+  font-family: "Roboto", sans-serif;
+}
+  
+ .modal {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(77, 77, 77, 0.7);
+  transition: all 0.4s;
+}
+ 
+.modal:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.content {
+  border-radius: 4px;
+  position: relative;
+  width: 500px;
+  max-width: 90%;
+  background: #fff;
+  padding: 1em 2em;
+}
+ 
+.footer {
+  text-align: right;
+  margin-top: 50px;
+}
+ 
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #585858;
+  text-decoration: none;
+}
+ 
+.footer-btn-close {
+  width: 150px;
+  padding: 10px;
+  text-decoration: none;
+  background-color: #cfcca8;
+  color: #000000;
+  border-radius: 3px;
+}
+
+/*form design*/
+  
+  #wrapper {
+  width:100%;
+  clear:both;
+}
+#first {
+ 
+  width:33.3%;
+  float:left;
+}
+#second {
+  
+  width:33.3%;
+  float:left;
+}
+#third {
+ 
+  width:33.3%;
+  float:left;
+}
+  </style>
+</head>
+<body>
+<img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+<center><h4 style="display:inline-block; top:0; margin-top:-35px;">Soluções Enfermagem - Gerador de Certificado Dinamico Massivo</h4></center>
+<div id="sample">
+<fieldset id="embol" style="background-color:#f5f5f5;" >
+    <legend>Dados dos Alunos</legend>
+	
+	<label for="curso">Nome do Curso:</label>
+	<input type="text" name="curso" id="curso" style="width:26%;height:30px;" minlength="2" required/> 
+	
+	<label for="cargahoraria">Carga Horaria:</label>
+	<input type="text" name="cargahoraria" id="cargahoraria" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	<label for="aproveitamento">Aproveitamento(%):</label>
+	<input type="text" name="aproveitamento" id="aproveitamento" style="width:9%;height:30px;" minlength="1" required />
+	
+	
+	<label for="cidade">Cidade/Sigla:</label>
+	<input type="text" name="cidade" id="cidade" style="width:9%;height:30px;" value="Vila Velha/ES" />
+	
+	<a href="#informacao" style="margin-left:7%; text-decoration:none; color:black; border:1px solid black; border-radius:0px 3px 0px 3px;"><img src="img/info.png" style="width:25px; height:25px;"></img><strong>SOBRE</strong></a>
+	
+	<hr>
+	
+	
+	
+	<label for="mesinicio">Mês Inicio:</label>
+	<select name="mesinicio" id="mesinicio" style="width:8%;height:30px;">
+	<option value="Janeiro">Janeiro</option>
+	<option value="Fevereiro">Fevereiro</option>
+	<option value="Março">Março</option>
+	<option value="Abril">Abril</option>
+	<option value="Maio">Maio</option>
+	<option value="Junho">Junho</option>
+	<option value="Julho">Julho</option>
+	<option value="Agosto">Agosto</option>
+	<option value="Setembro">Setembro</option>
+	<option value="Outubro">Outubro</option>
+	<option value="Novembro">Novembro</option>
+	<option value="Dezembro">Dezembro</option>
+	</select>
+	
+	<label for="cursoinicio">Curso Data Inicio:</label>
+	<input type="text" name="cursoinicio" id="cursoinicio" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	|||||
+	
+	<label for="mesencerramento">Mês Encerramento:</label>
+	<select name="mesencerramento" id="mesencerramento" style="width:8%;height:30px;">
+	<option value="Janeiro">Janeiro</option>
+	<option value="Fevereiro">Fevereiro</option>
+	<option value="Março">Março</option>
+	<option value="Abril">Abril</option>
+	<option value="Maio">Maio</option>
+	<option value="Junho">Junho</option>
+	<option value="Julho">Julho</option>
+	<option value="Agosto">Agosto</option>
+	<option value="Setembro">Setembro</option>
+	<option value="Outubro">Outubro</option>
+	<option value="Novembro">Novembro</option>
+	<option value="Dezembro" selected>Dezembro</option>
+	</select>
+	
+	<label for="cursoencerramento">Curso Data Encerramento:</label>
+	<input type="text" name="cursoencerramento" id="cursoencerramento" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	
+	<label for="anoemissao">Ano de Emissão:</label>
+	<input type="text" name="anoemissao" id="anoemissao" style="width:8%;height:30px;" value="2023" /> 
+	
+	<!-- Botão disparo -->
+	
+		<a href="#smtp"><input type="button" name="btndisparo" class="btndisparo" style="width:9%;height:30px;" value="Disparo de Email" /> </a>
+	
+	<!-- fim botão disparo -->
+	
+	<hr>
+	<input type="button" name="btndisparo" class="btnfun" style="width:11%;height:30px;" onclick="ocultarnomes();" style="width:11%;height:30px;" value="Ocultar Editor Nomes"  /> 
+	<input type="button" name="btndisparo" class="btnfun" style="width:11%;height:30px;" onclick="ocultarcpf();" value="Ocultar Editor CPF" /> 
+	<input type="button" name="btndisparo" class="btnfun" style="width:12%;height:30px;" onclick="ocultarconteudo();" value="Ocultar Editor Conteudo" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:11%;height:30px;" onclick="exibirtudo();" value="Exibir Todos" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:18%;height:30px;" onclick="desab();" value="Desabilitar Editor e Redimencionar" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:12%;height:30px;" onclick="hab();" value="Habilitar Editor" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:12%;height:30px;" onclick="redim();" value="Redimencionar Editores" />
+    <input type="checkbox" id="certverso_chk" name="certverso_chk" value="sim"><label for="certverso_chk" style="color:red; font-size:14px;">CERTIF C/ VERSO</label></input>
+  
+
+	<!-- <input type="button" name="btndisparo" class="btndisparo" style="width:8%;height:30px;" onclick="();" value="Ajustar Caixa" /> -->
+	
+	<div id="wrapper">
+  <div id="first">
+    <h4>Nomes</h4>  
+  <textarea name="area" id="area" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de Nomes de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="second">
+  
+  <h4>CPF</h4>
+  <textarea name="area1" id="area1" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de CPF'F de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="third">
+  <h4>Conteudo Certificado </h4>
+  <textarea name="area2" id="area2" style="width:100%;height:200px; display:inline-block;">
+       Certificamos para os devidos fins que $[ALUNO]
+participou com $[APROVEITAMENTO]% de aproveitamento do curso de $[CURSO], ministrado por Soluções Enfermagem – Consultoria, Cursos, 
+Serviços e Treinamentos, no período de $[DATA_INICIO] de $[MES_INICIO] a $[DATA_FIM] de $[MES_FIM] de $[ANO_EMISSAO], com carga horária 
+de $[CARGA_HORARIA].
+  </textarea>
+  
+  </div>
+</div>
+	
+</fieldset>
+
+<center>
+<input type="submit" name="btngerar"  class="btndisparo"  style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Gerar PDF's Agora" onclick="verificar()" />
+<a href="#verso-certificado"><input type="button" name="btnenviarmail" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Configurar Verso" /></a>
+<input type="button" name="btnenviarmail" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Enviar por Disparo" />
+</center>
+
+</div>
+
+<!-- Disparo de emails -->
+
+<div id="smtp" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px;">
+  <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h3 style="display:inline-block; top:0; margin-top:-35px;">Janela de Disparo de Emails - Soluções Enfermagem</h3></center>
+ 
+    <p>
+      Para efetuar os disparos de email deve seguir as seguintes regras:
+	  <ul>
+	  <li>1 - Escrever um titulo que aparecerá no email</li>
+	  <li>2 - Colocar no campo abaixo os emails na mesma ordem de <b>NOME e CPF</b> dos alunos!</li>
+	  </ul>
+    </p>
+	<label for="mailtulo" style="margin-left:5%;">Titulo do Email:</label>
+	<input type="text" name="curso" class="mailtulo" style="width:90%;height:30px; margin-left:5%;" />
+ 
+ 
+    <label for="alunomail" style="margin-left:5%;">Emails dos Alunos:</label>
+	<textarea name="alunomail" id="alunomail" style="width:90%;height:200px; margin-left:5%; display:inline-block;"></textarea>
+ 
+	<label for="msgcont" style="margin-left:5%;">Conteudo do Email (Opicional):</label>
+	<textarea name="msgcont" id="msgcont" style="width:90%;height:90px; margin-left:5%; display:inline-block;"></textarea>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:20%;height:50px; margin-top:20px;" value="Cancelar" />
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:20%;height:50px; margin-top:20px;" value="Disparar SMTP" />
+ </a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+
+
+<!-- Configurar Verso -->
+
+<div id="verso-certificado" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px; width:600px;">
+  <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h3 style="display:inline-block; top:0; margin-top:-35px;">Configurar Verso do Certificado <br> - Soluções Enfermagem</h3></center>
+ 
+    <p>
+      Nessa guia você configura o verso do certificado:
+	  <ul>
+      <li style="display:inline-block;">1 - Texto simples</li> |
+	  <li style="display:inline-block;">2 - Editor de texto padrão</li>
+	  </ul>
+    </p>
+	
+	<label for="msgcont" style="margin-left:5%;">Conteudo do Verso:</label>
+	<textarea name="msgcont" id="area3" style="width:99%;height:200px; margin-left:1%; display:inline-block;">
+       
+	</textarea>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:100%;height:50px; margin-top:20px;" value="Sair e Salvar" /></a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+
+<!-- Informações do Programa e variaveis ambiente -->
+
+<div id="informacao" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px; width:600px;">
+<p>
+<div style="topsep" style="margin-top:200px;">
+ <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h4 style="display:inline-block; top:0; margin-top:-35px;">Manual do SoftWare <br> - Soluções Enfermagem</h4></center>
+</div>
+</p>
+    <p>
+      Instruções de USO GERAL:
+	  <ul>
+      <li>1 - Esvaziar campos que não serão preenchidos nome ou CPF</li>
+	  <li>2 - O Texto deve ser organizado e as variaveis devem ser colocadas em posição de exibição conforme o mesmo.</li>
+	  <li>3 - As variaveis ambientes puxam o texto conforme os campos informados.</li>
+	  <li>4 - NOMES e CPF devem ser colocados em lista um abaixo do outro e correspondente ao seu dono exemplo:</li>
+	  <hr>
+	  NOME  ----------------- CPF<br>
+	  JOÂO MARIO  ------- 350.907.098-44<br>
+	  ANAÍ MARIA  ------- 600.700.891-55<br>
+	  <hr>
+	  <li>5 - Conteudo do Certificado é frente a primeira pagina de certificado e nela tem algumas palavras passe e o texto padrão para emissão do mesmo .</li>
+	  <li>6 - Ao clicar no botão [Configurar Verso] tem uma caixa de texto editavel nela você colocará o conteudo do verso. Não se esqueça de marcar a caixa de checagem para os certificados sairem com a pagina de verso</li>
+	  <li>7 - Variaveis ambiente são palavras definidas para serem subistituídas por determinado texto você verá a seguir as variáveis cujo seus nomes são associados a campos e funções.</li>
+	  <hr>
+	  <center>VARIAVEIS AMBIENTE</center>
+	  <hr>
+	<strong>$[CURSO]</strong> -> Responsavel por receber o nome do curso ou título do curso.<br>
+	<strong>$[APROVEITAMENTO]</strong> - Recebe o numero do aproveitamento do aluno em sua frente requer a inserção do sinal de(%)<br>
+	<strong>$[CARGA_HORARIA]</strong> - Recebe a carga horaria do curso.<br>
+	<strong>$[MES_INICIO]</strong> - Mês em que o curso iniciou.<br>
+	<strong>$[MES_FIM]</strong> - Mês em que o curso encerrou.<br>
+	<strong>$[DATA_INICIO]</strong> - Dia do mês em que o curso inicio.<br>
+	<strong>$[DATA_FIM]</strong> - Dia do mês que o curso encerrou.<br>
+	<strong>$[ANO_EMISSAO]</strong> - Ano em que o certificado foi feito ou emitido.<br>
+	<strong>$[ALUNO]</strong> - Recebe o nome do aluno atual dentro da lista.<br>
+	<strong>$[CPF]</strong> - Recebe o cpf atribuido ao aluno atual se requerido.
+	  </ul>
+    </p>
+	
+	<center>Desenvolvido por Michael Siernandes para Soluções Enfermagem.</center>
+	<center>Versão 1.36</center>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:100%;height:50px; margin-top:20px;" value="Fechar Guia Sobre" /></a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+
+</body>
+</html>

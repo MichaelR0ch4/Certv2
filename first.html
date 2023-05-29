@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>Certificados Dinamicos - Soluções</title>  
+  <meta charset="utf-8">
+  <!-- <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> -->
+  <script type="text/javascript" src="xjs/nicEdit.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+  <script type="text/javascript">
+//<![CDATA[
+  bkLib.onDomLoaded(function() {
+        new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area');
+        new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area1');
+        new nicEditor({fullPanel : true,maxHeight : 200}).panelInstance('area2');
+  });
+  //]]>
+  </script>
+  
+  <style>
+  #wrapper {
+  width:100%;
+  clear:both;
+}
+#first {
+ 
+  width:33.3%;
+  float:left;
+}
+#second {
+  
+  width:33.3%;
+  float:left;
+}
+#third {
+ 
+  width:33.3%;
+  float:left;
+}
+  </style>
+</head>
+<body>
+<h4>Soluções Enfermagem - Gerador de PDF Dinamico Massivo</h4>
+<div id="sample">
+<fieldset style="background-color:#f5f5f5;">
+    <legend>Dados dos Alunos</legend>
+	<label for="curso">Nome do Curso:</label>
+	<input type="text" name="curso" class="curso" style="width:26%;height:30px;" /> 
+	
+	<label for="cargahoraria">Carga Horaria:</label>
+	<input type="text" name="cargahoraria" class="cargahoraria" style="width:8%;height:30px;" /> 
+	
+	<label for="aproveitamento">Aproveitamento(%):</label>
+	<input type="text" name="aproveitamento" class="aproveitamento" style="width:9%;height:30px;" />
+	
+	
+	<label for="cidade">Cidade/Sigla:</label>
+	<input type="text" name="cidade" class="cidade" style="width:9%;height:30px;" value="Vila Velha/ES" />
+	<hr>
+	
+	
+	
+	<label for="mesinicio">Mês Inicio:</label>
+	<select name="mesinicio" class="mesencerramento" style="width:8%;height:30px;">
+	<option value="1">Janeiro</option>
+	<option value="2">Fevereiro</option>
+	<option value="3">Março</option>
+	<option value="4">Abril</option>
+	<option value="5">Maio</option>
+	<option value="6">Junho</option>
+	<option value="7">Julho</option>
+	<option value="8">Agosto</option>
+	<option value="9">Setembro</option>
+	<option value="10">Outubro</option>
+	<option value="11">Novembro</option>
+	<option value="12">Dezembro</option>
+	</select>
+	
+	<label for="cursoinicio">Curso Data Inicio:</label>
+	<input type="text" name="cursoinicio" class="cursoinicio" style="width:8%;height:30px;" /> 
+	
+	|||||
+	
+	<label for="mesencerramento">Mês Encerramento:</label>
+	<select name="mesencerramento" class="mesencerramento" style="width:8%;height:30px;">
+	<option value="1">Janeiro</option>
+	<option value="2">Fevereiro</option>
+	<option value="3">Março</option>
+	<option value="4">Abril</option>
+	<option value="5">Maio</option>
+	<option value="6">Junho</option>
+	<option value="7">Julho</option>
+	<option value="8">Agosto</option>
+	<option value="9">Setembro</option>
+	<option value="10">Outubro</option>
+	<option value="11">Novembro</option>
+	<option value="12" selected>Dezembro</option>
+	</select>
+	
+	<label for="cursoencerramento">Curso Data Encerramento:</label>
+	<input type="text" name="cursoencerramento" class="cursoencerramento" style="width:8%;height:30px;" /> 
+	
+	
+	<label for="anoemissao">Ano de Emissão:</label>
+	<input type="text" name="anoemissao" class="anoemissao" style="width:8%;height:30px;" value="2023" /> 
+	
+	<input type="button" name="btndisparo" class="btndisparo" style="width:9%;height:30px;" value="Disparo de Email" /> 
+	<hr>
+	<input type="button" name="btndisparo" class="btndisparo" style="width:11%;height:30px;" value="Ocultar Editor Nomes" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:11%;height:30px;" value="Ocultar Editor CPF" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:12%;height:30px;" value="Ocultar Editor Conteudo" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:11%;height:30px;" value="Exibir Todos" /> 
+	
+	<div id="wrapper">
+  <div id="first">
+    <h4>Nomes</h4>  
+  <textarea name="area" id="area" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de Nomes de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="second">
+  
+  <h4>CPF</h4>
+  <textarea name="area1" id="area1" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de CPF'F de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="third">
+  <h4>Conteudo Certificado </h4>
+  <textarea name="area2" id="area2" style="width:100%;height:200px; display:inline-block;">
+       Certificamos para os devidos fins que $[ALUNO]
+participou com $[APROVEITAMENTO]% de aproveitamento do curso de $[CURSO], ministrado por Soluções Enfermagem – Consultoria, Cursos, 
+Serviços e Treinamentos, no período de $[DATA_INICIO] de $[MES_INICIO] a $[DATA_FIM] de $[MES_FIM] de 2023, com carga horária 
+de $[CARGA_HORARIA].
+  </textarea>
+  
+  </div>
+</div>
+	
+</fieldset>
+
+<center>
+<input type="button" name="btngerar" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Gerar PDF's Agora" />
+<input type="button" name="btnenviarmail" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Enviar por Disparo" />
+</center>
+
+</div>
+</body>
+</html>

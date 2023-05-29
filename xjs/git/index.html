@@ -1,0 +1,270 @@
+<html>
+<head>
+  <title>Certificados Dinamicos - Soluções</title>  
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="img/logoapp.png" />
+   <script type="text/javascript" src="../nicEdit.js"></script>
+  <script type="text/javascript" src="certificado.js"></script>
+  <script type="text/javascript" src="fsjs/src/FileSaver.js"></script>
+  <!-- <script type="text/javascript" src="fsjs/dist/FileSaver.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href="estilo.css" rel="stylesheet">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> -->
+ 
+  
+  
+  <!-- DESIGN -->
+  
+</head>
+
+<!-- BODY BELLOW -->
+
+<body>
+
+<img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+<center><h4 style="display:inline-block; top:0; margin-top:-35px;">Soluções Enfermagem - Gerador de Certificado Dinamico Massivo</h4></center>
+<div id="sample">
+<fieldset id="embol" style="background-color:#f5f5f5;" >
+    <legend>Dados dos Alunos</legend>
+	
+	<label for="curso">Nome do Curso:</label>
+	<input type="text" name="curso" id="curso" style="width:26%;height:30px;" minlength="2" required/> 
+	
+	<label for="cargahoraria">Carga Horaria:</label>
+	<input type="text" name="cargahoraria" id="cargahoraria" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	<label for="aproveitamento">Aproveitamento(%):</label>
+	<input type="text" name="aproveitamento" id="aproveitamento" style="width:9%;height:30px;" minlength="1" required />
+	
+	
+	<label for="cidade">Cidade/Sigla:</label>
+	<input type="text" name="cidade" id="cidade" style="width:9%;height:30px;" value="Vila Velha/ES" />
+	
+	<a href="#informacao" style="margin-left:7%; text-decoration:none; color:black; border:1px solid black; border-radius:0px 3px 0px 3px;"><img src="img/info.png" style="width:25px; height:25px;"></img><strong>SOBRE</strong></a>
+	
+	<hr>
+	
+	
+	
+	<label for="mesinicio">Mês Inicio:</label>
+	<select name="mesinicio" id="mesinicio" style="width:8%;height:30px;">
+	<option value="Janeiro">Janeiro</option>
+	<option value="Fevereiro">Fevereiro</option>
+	<option value="Março">Março</option>
+	<option value="Abril">Abril</option>
+	<option value="Maio">Maio</option>
+	<option value="Junho">Junho</option>
+	<option value="Julho">Julho</option>
+	<option value="Agosto">Agosto</option>
+	<option value="Setembro">Setembro</option>
+	<option value="Outubro">Outubro</option>
+	<option value="Novembro">Novembro</option>
+	<option value="Dezembro">Dezembro</option>
+	</select>
+	
+	<label for="cursoinicio">Curso Data Inicio:</label>
+	<input type="text" name="cursoinicio" id="cursoinicio" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	|||||
+	
+	<label for="mesencerramento">Mês Encerramento:</label>
+	<select name="mesencerramento" id="mesencerramento" style="width:8%;height:30px;">
+	<option value="Janeiro">Janeiro</option>
+	<option value="Fevereiro">Fevereiro</option>
+	<option value="Março">Março</option>
+	<option value="Abril">Abril</option>
+	<option value="Maio">Maio</option>
+	<option value="Junho">Junho</option>
+	<option value="Julho">Julho</option>
+	<option value="Agosto">Agosto</option>
+	<option value="Setembro">Setembro</option>
+	<option value="Outubro">Outubro</option>
+	<option value="Novembro">Novembro</option>
+	<option value="Dezembro" selected>Dezembro</option>
+	</select>
+	
+	<label for="cursoencerramento">Curso Data Encerramento:</label>
+	<input type="text" name="cursoencerramento" id="cursoencerramento" style="width:8%;height:30px;" minlength="1" required /> 
+	
+	
+	<label for="anoemissao">Ano de Emissão:</label>
+	<input type="text" name="anoemissao" id="anoemissao" style="width:8%;height:30px;" value="2023" /> 
+	
+	<!-- Botão disparo -->
+	
+		<a href="#smtp"><input type="button" name="btndisparo" class="btndisparo" style="width:9%;height:30px;" value="Disparo de Email" /> </a>
+	
+	<!-- fim botão disparo -->
+	
+	<hr>
+	<input type="button" name="btndisparo" class="btnfun" style="width:11%;height:30px;" onclick="ocultarnomes();" style="width:11%;height:30px;" value="Ocultar Editor Nomes"  /> 
+	<input type="button" name="btndisparo" class="btnfun" style="width:11%;height:30px;" onclick="ocultarcpf();" value="Ocultar Editor CPF" /> 
+	<input type="button" name="btndisparo" class="btnfun" style="width:12%;height:30px;" onclick="ocultarconteudo();" value="Ocultar Editor Conteudo" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:11%;height:30px;" onclick="exibirtudo();" value="Exibir Todos" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:18%;height:30px;" onclick="desab();" value="Desabilitar Editor e Redimencionar" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:12%;height:30px;" onclick="hab();" value="Habilitar Editor" /> 
+	<input type="button" name="btndisparo" class="btndisparo" style="width:12%;height:30px;" onclick="redim();" value="Redimencionar Editores" />
+    <input type="checkbox" id="certverso_chk" name="certverso_chk" value="sim"><label for="certverso_chk" style="color:red; font-size:14px;">CERTIF C/ VERSO</label></input>
+  
+
+	<!-- <input type="button" name="btndisparo" class="btndisparo" style="width:8%;height:30px;" onclick="();" value="Ajustar Caixa" /> -->
+	
+	<div id="wrapper">
+  <div id="first">
+    <h4>Nomes</h4>  
+  <textarea name="area" id="area" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de Nomes de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="second">
+  
+  <h4>CPF</h4>
+  <textarea name="area1" id="area1" style="width:100%;height:200px; display:inline-block;">
+       Insira a Lista de CPF'F de Aluno em Ordem com as Demais Colunas
+  </textarea>
+  </div>
+  
+  
+  <div id="third">
+  <h4>Conteudo Certificado </h4>
+  <textarea name="area2" id="area2" style="width:100%;height:200px; display:inline-block;">Certificamos para os devidos fins que <b>$[ALUNO] </b>participou com <b>$[APROVEITAMENTO]</b>% de aproveitamento do curso de <b>$[CURSO]</b>, ministrado por Soluções Enfermagem – Consultoria, Cursos, Serviços e Treinamentos, no período de <b>$[DATA_INICIO]</b> de <b>$[MES_INICIO]</b> a <b>$[DATA_FIM]</b> de <b>$[MES_FIM]</b> de <b>$[ANO_EMISSAO]</b>, com carga horária de <b>$[CARGA_HORARIA]</b>h.</textarea>
+  
+  </div>
+</div>
+	
+</fieldset>
+
+<center>
+<input type="submit" name="btngerar"  class="btndisparo"  style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Gerar PDF's Agora" onclick="verificar()" />
+<a href="#verso-certificado"><input type="button" name="btnenviarmail" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Configurar Verso" /></a>
+<input type="button" name="btnenviarmail" class="btndisparo" style="width:20%;height:50px; margin-top:20px; margin-left:10px;" value="Enviar por Disparo" />
+</center>
+
+</div>
+
+<!-- Disparo de emails -->
+
+<div id="smtp" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px;">
+  <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h3 style="display:inline-block; top:0; margin-top:-35px;">Janela de Disparo de Emails - Soluções Enfermagem</h3></center>
+ 
+    <p>
+      Para efetuar os disparos de email deve seguir as seguintes regras:
+	  <ul>
+	  <li>1 - Escrever um titulo que aparecerá no email</li>
+	  <li>2 - Colocar no campo abaixo os emails na mesma ordem de <b>NOME e CPF</b> dos alunos!</li>
+	  </ul>
+    </p>
+	<label for="mailtulo" style="margin-left:5%;">Titulo do Email:</label>
+	<input type="text" name="curso" class="mailtulo" style="width:90%;height:30px; margin-left:5%;" />
+ 
+ 
+    <label for="alunomail" style="margin-left:5%;">Emails dos Alunos:</label>
+	<textarea name="alunomail" id="alunomail" style="width:90%;height:200px; margin-left:5%; display:inline-block;"></textarea>
+ 
+	<label for="msgcont" style="margin-left:5%;">Conteudo do Email (Opicional):</label>
+	<textarea name="msgcont" id="msgcont" style="width:90%;height:90px; margin-left:5%; display:inline-block;"></textarea>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:20%;height:50px; margin-top:20px;" value="Cancelar" />
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:20%;height:50px; margin-top:20px;" value="Disparar SMTP" />
+ </a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+
+
+<!-- Configurar Verso -->
+
+<div id="verso-certificado" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px; width:600px;">
+  <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h3 style="display:inline-block; top:0; margin-top:-35px;">Configurar Verso do Certificado <br> - Soluções Enfermagem</h3></center>
+ 
+    <p>
+      Nessa guia você configura o verso do certificado:
+	  <ul>
+      <li style="display:inline-block;">1 - Texto simples</li> |
+	  <li style="display:inline-block;">2 - Editor de texto padrão</li>
+	  </ul>
+    </p>
+	
+	<label for="msgcont" style="margin-left:5%;">Conteudo do Verso:</label>
+	<textarea name="msgcont" id="area3" style="width:99%;height:200px; margin-left:1%; display:inline-block;">
+       
+	</textarea>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:100%;height:50px; margin-top:20px;" value="Sair e Salvar" /></a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+
+<!-- Informações do Programa e variaveis ambiente -->
+
+<div id="informacao" class="modal">
+  <div class="modal__content" style="border:1px solid gray; background-color:#fff; border-radius:8px 8px 8px 8px; width:600px;">
+<p>
+<div style="topsep" style="margin-top:200px;">
+ <img src="img/logo.png" style="width:16%;height:50px; display:inline-block;" />
+    <center><h4 style="display:inline-block; top:0; margin-top:-35px;">Manual do SoftWare <br> - Soluções Enfermagem</h4></center>
+</div>
+</p>
+    <p>
+      Instruções de USO GERAL:
+	  <ul>
+      <li>1 - Esvaziar campos que não serão preenchidos nome ou CPF</li>
+	  <li>2 - O Texto deve ser organizado e as variaveis devem ser colocadas em posição de exibição conforme o mesmo.</li>
+	  <li>3 - As variaveis ambientes puxam o texto conforme os campos informados.</li>
+	  <li>4 - NOMES e CPF devem ser colocados em lista um abaixo do outro e correspondente ao seu dono exemplo:</li>
+	  <hr>
+	  NOME  ----------------- CPF<br>
+	  JOÂO MARIO  ------- 350.907.098-44<br>
+	  ANAÍ MARIA  ------- 600.700.891-55<br>
+	  <hr>
+	  <li>5 - Conteudo do Certificado é frente a primeira pagina de certificado e nela tem algumas palavras passe e o texto padrão para emissão do mesmo .</li>
+	  <li>6 - Ao clicar no botão [Configurar Verso] tem uma caixa de texto editavel nela você colocará o conteudo do verso. Não se esqueça de marcar a caixa de checagem para os certificados sairem com a pagina de verso</li>
+	  <li>7 - Variaveis ambiente são palavras definidas para serem subistituídas por determinado texto você verá a seguir as variáveis cujo seus nomes são associados a campos e funções.</li>
+	  <hr>
+	  <center>VARIAVEIS AMBIENTE</center>
+	  <hr>
+	<strong>$[CURSO]</strong> -> Responsavel por receber o nome do curso ou título do curso.<br>
+	<strong>$[APROVEITAMENTO]</strong> - Recebe o numero do aproveitamento do aluno em sua frente requer a inserção do sinal de(%)<br>
+	<strong>$[CARGA_HORARIA]</strong> - Recebe a carga horaria do curso.<br>
+	<strong>$[MES_INICIO]</strong> - Mês em que o curso iniciou.<br>
+	<strong>$[MES_FIM]</strong> - Mês em que o curso encerrou.<br>
+	<strong>$[DATA_INICIO]</strong> - Dia do mês em que o curso inicio.<br>
+	<strong>$[DATA_FIM]</strong> - Dia do mês que o curso encerrou.<br>
+	<strong>$[ANO_EMISSAO]</strong> - Ano em que o certificado foi feito ou emitido.<br>
+	<strong>$[ALUNO]</strong> - Recebe o nome do aluno atual dentro da lista.<br>
+	<strong>$[CPF]</strong> - Recebe o cpf atribuido ao aluno atual se requerido.
+	  </ul>
+    </p>
+	
+	<center>Desenvolvido por Michael Siernandes para Soluções Enfermagem.</center>
+	<center>Versão 1.36</center>
+ 
+    <div class="modal__footer">
+      <a href="#" class="modal__footer-btn-close"><input type="button"  style="width:100%;height:50px; margin-top:20px;" value="Fechar Guia Sobre" /></a>
+    </div>
+ 
+    <!-- <a href="#" class="modal__close">&times;</a> -->
+  </div>
+</div>
+  <div id="cvgen"></div>
+
+ <!-- <canvas id="myCanvas" style="border:2px solid black;" width="800" height="600"></canvas> -->
+ <!-- <script src="jsPDF//examples/js/ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <!-- <script type="text/javascript" src="jsPDF/exemples/js/pdfobject.min.js"></script> -->
+     
+</body>
+</html>
